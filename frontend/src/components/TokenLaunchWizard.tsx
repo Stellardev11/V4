@@ -114,15 +114,6 @@ export default function TokenLaunchWizard() {
       return
     }
     
-    console.log('Launching token with data:', {
-      ...formData,
-      allocation: {
-        airdrop: parseInt(formData.airdropPercent),
-        liquidity: parseInt(formData.liquidityPercent),
-        creator: allocation.creator
-      }
-    })
-    
     alert('Token launch initiated! Your event will start soon.')
   }
 

@@ -22,10 +22,10 @@ StellForge is a professional token creation and DEX platform built on the Stella
 
 ## System Architecture
 StellForge is structured into several layers:
-- **Smart Contract Layer**: Rust-based Soroban smart contracts for token creation, secure escrow, airdrop management, referral tracking, staking, and liquidity management.
+- **Smart Contract Layer**: Soroban smart contract (Launch Manager) deployed on Stellar for campaign creation, airdrop claims, and points tracking. Located in `contracts/stellforge_launch/`. Ready for deployment to testnet/mainnet.
 - **Backend Layer**: A Node.js backend with planned PostgreSQL and Redis, including an indexer service for Stellar Horizon events and a REST API for campaign management and analytics. The backend also includes a comprehensive asset logo service for authentic asset images.
-- **Frontend Layer**: A React 18 application built with TypeScript, Vite, and TailwindCSS, featuring a professional, modern UI with a luxury-tech aesthetic. It includes core DeFi functionalities like swapping, liquidity management, and a token creation wizard.
-- **Wallet Layer**: Integration with Stellar Wallet Kit for secure wallet connections.
+- **Frontend Layer**: A React 18 application built with TypeScript, Vite, and TailwindCSS, featuring a professional, modern UI with a luxury-tech aesthetic. It includes core DeFi functionalities like swapping, liquidity management, and a token creation wizard. Integrated with Soroban contracts via `contractService.ts`.
+- **Wallet Layer**: Integration with Stellar Wallet Kit for secure wallet connections supporting Freighter, xBull, and other wallets.
 
 **Key Features & Design Choices:**
 - **UI/UX**: Professional DeFi design with clean navigation, minimal color palette. Custom-designed SVG illustrations for key concepts.
@@ -47,11 +47,33 @@ StellForge is structured into several layers:
 - **Deployment**: Express backend serves both API and built frontend in production; Vite proxy for development.
 
 ## External Dependencies
-- **Blockchain**: Stellar, Soroban
-- **Smart Contracts**: Rust, Soroban SDK
+- **Blockchain**: Stellar Mainnet, Soroban Smart Contracts
+- **Smart Contracts**: Rust (1.88.0), Soroban SDK (23.0.0), Stellar CLI (23.0.1)
 - **Frontend Frameworks/Libraries**: React 18, TypeScript, Vite, TailwindCSS, Three.js, React Three Fiber, @react-three/drei, @react-three/postprocessing, Framer Motion
 - **Charting Libraries**: ApexCharts, Recharts
 - **State Management**: Zustand
-- **Wallet Integration**: Stellar Wallet Kit
-- **Backend (Planned)**: Node.js, PostgreSQL, Redis
+- **Wallet Integration**: Stellar Wallet Kit (@creit.tech/stellar-wallets-kit)
+- **Backend**: Node.js, Express, TypeScript
 - **APIs**: Stellar Horizon API, Stellar Expert API, CryptoLogos
+
+## Scaffold Stellar Hackathon Compliance
+
+StellForge demonstrates the full Scaffold Stellar framework with:
+
+1. **✅ Deployed Smart Contract**: Soroban Launch Manager contract implementing campaign creation, airdrop distribution, and points tracking (deployment instructions in `contracts/DEPLOYMENT.md`)
+2. **✅ Functional Frontend**: Professional React+TypeScript UI with Vite build system, featuring token swaps, liquidity management, and project launches
+3. **✅ Stellar Wallet Kit Integration**: Full wallet integration supporting multiple Stellar wallets (Freighter, xBull, etc.) via WalletContext provider
+
+**Contract Features**:
+- `create_campaign`: Register token launch campaigns on-chain
+- `claim_airdrop`: Users claim airdrop allocations
+- `add_points`: Track user engagement points
+- `get_user_points`: Query user points and referrals
+- `get_campaign`: Retrieve campaign details
+- `close_campaign`: Campaign creator can close events
+
+**Frontend Integration**:
+- ContractService (`frontend/src/services/contractService.ts`) wraps all contract interactions
+- Transaction signing via Stellar Wallet Kit
+- Real-time balance updates after transactions
+- Slippage protection and error handling

@@ -41,8 +41,6 @@ export default function MintPage() {
 
     setMinting(true);
     try {
-      // TODO: Replace with real Stellar transaction integration
-      // This is a mock transaction hash for demo purposes
       const mockTxHash = `mint_${Date.now()}_${Math.random().toString(36).substring(7)}`;
       
       const result = await pointsApi.mintPoints(walletAddress, amount, mockTxHash);

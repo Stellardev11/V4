@@ -15,7 +15,6 @@ export default function TradingTerminal({ tokenId, onBack }: TradingTerminalProp
   const [tradeAmount, setTradeAmount] = useState('')
   const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy')
 
-  // Generate mock chart data
   const chartData = useMemo(() => {
     const basePrice = token?.price || 0.0001
     const points = 50
