@@ -88,7 +88,7 @@ export default function TokenCarousel({ tokens, title, onViewToken }: TokenCarou
                   </div>
                   <div>
                     <div className="text-gray-400 text-sm mb-1">24h Change</div>
-                    <div className={`font-bold text-lg flex items-center gap-1 ${currentToken.change24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    <div className={`font-bold text-lg flex items-center gap-1 ${currentToken.change24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                       {currentToken.change24h >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                       {currentToken.change24h >= 0 ? '+' : ''}{currentToken.change24h}%
                     </div>

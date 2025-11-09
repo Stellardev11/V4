@@ -12,8 +12,8 @@ function FloatingToken() {
       <mesh>
         <dodecahedronGeometry args={[1, 0]} />
         <meshStandardMaterial
-          color="#3BA3FF"
-          emissive="#134E9C"
+          color="#F7931A"
+          emissive="#0B0E11"
           emissiveIntensity={0.3}
           metalness={0.8}
           roughness={0.2}
@@ -29,8 +29,8 @@ export default function Scene3D() {
       <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="#3BA3FF" />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#F8C365" />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#F7931A" />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#FCD535" />
           
           <Stars
             radius={100}

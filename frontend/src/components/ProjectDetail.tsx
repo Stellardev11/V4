@@ -19,9 +19,9 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
   const [copied, setCopied] = useState(false)
 
   const pieData = [
-    { name: 'Creator', value: project.allocation.creator, color: '#FFD700' },
-    { name: 'Airdrop', value: project.allocation.airdrop, color: '#00D9FF' },
-    { name: 'Liquidity', value: project.allocation.liquidity, color: '#9D4EDD' },
+    { name: 'Creator', value: project.allocation.creator, color: '#FCD535' },
+    { name: 'Airdrop', value: project.allocation.airdrop, color: '#F7931A' },
+    { name: 'Liquidity', value: project.allocation.liquidity, color: '#F7931A' },
   ]
 
   const mockChartData = Array.from({ length: 50 }, (_, i) => ({
@@ -71,7 +71,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       {project.metrics.marketCap && (
         <div className="bg-gradient-to-br from-white/5 to-white/10 rounded-xl p-6 border border-white/10">
           <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-cyan-400" />
+            <TrendingUp className="w-5 h-5 text-[#F7931A]" />
             Trading Metrics
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -81,11 +81,11 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             </div>
             <div>
               <div className="text-sm text-gray-400 mb-1">Price</div>
-              <div className="text-xl font-bold text-cyan-400">${project.metrics.price?.toFixed(6) || '0.00'}</div>
+              <div className="text-xl font-bold text-[#F7931A]">${project.metrics.price?.toFixed(6) || '0.00'}</div>
             </div>
             <div>
               <div className="text-sm text-gray-400 mb-1">24h Change</div>
-              <div className={`text-xl font-bold ${(project.metrics.change24h || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              <div className={`text-xl font-bold ${(project.metrics.change24h || 0) >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                 {(project.metrics.change24h || 0) >= 0 ? '+' : ''}{project.metrics.change24h?.toFixed(2) || '0'}%
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
               </div>
               <div className="relative h-3 bg-white/5 rounded-full overflow-hidden">
                 <div 
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-500 rounded-full transition-all"
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#F7931A] via-[#F7931A] to-[#FCD535] rounded-full transition-all"
                   style={{ width: `${project.metrics.launchProgress}%` }}
                 />
               </div>
@@ -117,7 +117,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
 
       <button
         onClick={() => setShowTrading(true)}
-        className="w-full py-4 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 text-white rounded-xl font-bold text-lg shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-[1.02]"
+        className="w-full py-4 bg-gradient-to-r from-[#FCD535] via-[#F7931A] to-[#F7931A] text-white rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#F7931A]/50 transition-all hover:scale-[1.02]"
       >
         Open Trading Terminal
       </button>
@@ -128,13 +128,13 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
     <div className="space-y-6">
       <div className="bg-gradient-to-br from-white/5 to-white/10 rounded-xl p-6 border border-white/10">
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <Droplet className="w-5 h-5 text-cyan-400" />
+          <Droplet className="w-5 h-5 text-[#F7931A]" />
           Airdrop Details
         </h3>
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Total Airdrop</span>
-            <span className="text-lg font-bold text-cyan-400">
+            <span className="text-lg font-bold text-[#F7931A]">
               {(parseFloat(project.totalSupply) * project.allocation.airdrop / 100).toLocaleString()} {project.tokenSymbol}
             </span>
           </div>
@@ -165,15 +165,15 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
 
   const renderStarBurnContent = () => (
     <div className="space-y-6">
-      <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20">
+      <div className="bg-gradient-to-br from-[#F7931A]/10 to-red-500/10 rounded-xl p-6 border border-[#F7931A]/20">
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <Flame className="w-5 h-5 text-orange-400" />
+          <Flame className="w-5 h-5 text-[#F7931A]" />
           Burn Statistics
         </h3>
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Total STAR Burned</span>
-            <span className="text-2xl font-bold text-orange-400">
+            <span className="text-2xl font-bold text-[#F7931A]">
               {parseFloat(project.metrics.totalStarBurned).toLocaleString()}
             </span>
           </div>
@@ -206,7 +206,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
     <div className="space-y-6">
       <div className="bg-gradient-to-br from-white/5 to-white/10 rounded-xl p-6 border border-white/10">
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <Activity className="w-5 h-5 text-purple-400" />
+          <Activity className="w-5 h-5 text-[#F7931A]" />
           Pool Information
         </h3>
         <div className="space-y-4">
@@ -218,7 +218,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Pool Allocation</span>
-            <span className="text-lg font-bold text-purple-400">
+            <span className="text-lg font-bold text-[#F7931A]">
               {project.allocation.liquidity}%
             </span>
           </div>
@@ -307,17 +307,17 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <div className="text-sm text-gray-400 mb-1">Total Supply</div>
           <div className="text-2xl font-bold text-white">{parseFloat(project.totalSupply).toLocaleString()}</div>
         </div>
-        <div className="bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 rounded-xl p-5 border border-cyan-500/20">
+        <div className="bg-gradient-to-br from-[#F7931A]/10 to-[#F7931A]/5 rounded-xl p-5 border border-[#F7931A]/20">
           <div className="text-sm text-gray-400 mb-1">Participants</div>
-          <div className="text-2xl font-bold text-cyan-400">{project.metrics.totalParticipations}</div>
+          <div className="text-2xl font-bold text-[#F7931A]">{project.metrics.totalParticipations}</div>
         </div>
         <div className="bg-gradient-to-br from-lumina-gold/10 to-lumina-gold/5 rounded-xl p-5 border border-lumina-gold/20">
           <div className="text-sm text-gray-400 mb-1">XLM Contributed</div>
           <div className="text-2xl font-bold text-lumina-gold">{parseFloat(project.metrics.totalXlmContributed).toLocaleString()}</div>
         </div>
-        <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-5 border border-purple-500/20">
+        <div className="bg-gradient-to-br from-[#F7931A]/10 to-[#F7931A]/5 rounded-xl p-5 border border-[#F7931A]/20">
           <div className="text-sm text-gray-400 mb-1">STAR Distributed</div>
-          <div className="text-2xl font-bold text-purple-400">{parseFloat(project.metrics.totalStarDistributed).toLocaleString()}</div>
+          <div className="text-2xl font-bold text-[#F7931A]">{parseFloat(project.metrics.totalStarDistributed).toLocaleString()}</div>
         </div>
       </div>
 
@@ -327,13 +327,13 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <AreaChart data={mockChartData}>
             <defs>
               <linearGradient id="activityGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#00D9FF" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="#00D9FF" stopOpacity={0} />
+                <stop offset="0%" stopColor="#F7931A" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#F7931A" stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis dataKey="time" stroke="#666" tick={{ fill: '#666', fontSize: 10 }} />
             <YAxis stroke="#666" tick={{ fill: '#666', fontSize: 10 }} />
-            <Area type="monotone" dataKey="value" stroke="#00D9FF" strokeWidth={2} fill="url(#activityGradient)" />
+            <Area type="monotone" dataKey="value" stroke="#F7931A" strokeWidth={2} fill="url(#activityGradient)" />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'rgba(0, 0, 0, 0.8)', 
@@ -355,7 +355,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           {[...Array(5)].map((_, i) => (
             <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center font-bold text-white">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F7931A] to-[#F7931A] flex items-center justify-center font-bold text-white">
                   {i + 1}
                 </div>
                 <div>
@@ -380,12 +380,12 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         <div className="space-y-3">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="flex items-start gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
-              <div className="w-2 h-2 rounded-full bg-cyan-400 mt-2" />
+              <div className="w-2 h-2 rounded-full bg-[#F7931A] mt-2" />
               <div className="flex-1">
                 <div className="text-white font-medium">User GABC...XYZ{i} participated</div>
                 <div className="text-sm text-gray-400">{Math.floor(Math.random() * 60)} minutes ago</div>
               </div>
-              <div className="text-cyan-400 font-bold">+{(Math.random() * 100).toFixed(0)} STAR</div>
+              <div className="text-[#F7931A] font-bold">+{(Math.random() * 100).toFixed(0)} STAR</div>
             </div>
           ))}
         </div>
@@ -418,7 +418,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                   {project.logoUrl ? (
                     <img src={project.logoUrl} alt={project.tokenName} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+                    <div className="w-full h-full bg-gradient-to-br from-[#F7931A] to-[#F7931A] flex items-center justify-center text-white text-2xl font-bold">
                       {project.tokenSymbol[0]}
                     </div>
                   )}
@@ -427,8 +427,8 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
                     <h1 className="text-4xl font-bold text-white">{project.tokenName}</h1>
                     <span className={`px-3 py-1 rounded-lg text-sm font-semibold border ${
-                      project.status === 'active' ? 'bg-green-500/20 text-green-400 border-green-500/30' :
-                      project.status === 'upcoming' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' :
+                      project.status === 'active' ? 'bg-[#FCD535]/20 text-[#FCD535] border-[#FCD535]/30' :
+                      project.status === 'upcoming' ? 'bg-[#FCD535]/20 text-[#FCD535] border-[#FCD535]/30' :
                       'bg-gray-500/20 text-gray-400 border-gray-500/30'
                     }`}>
                       {project.status.toUpperCase()}
@@ -443,26 +443,26 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                     {project.twitter && (
                       <a href={project.twitter} target="_blank" rel="noopener noreferrer" 
                          className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all hover:scale-110 group">
-                        <Twitter className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300" />
+                        <Twitter className="w-5 h-5 text-[#F7931A] group-hover:text-[#F7931A]" />
                       </a>
                     )}
                     {project.discord && (
                       <a href={project.discord} target="_blank" rel="noopener noreferrer"
                          className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all hover:scale-110 group">
-                        <MessageCircle className="w-5 h-5 text-purple-400 group-hover:text-purple-300" />
+                        <MessageCircle className="w-5 h-5 text-[#F7931A] group-hover:text-[#F7931A]" />
                       </a>
                     )}
                     {project.website && (
                       <a href={project.website} target="_blank" rel="noopener noreferrer"
                          className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all hover:scale-110 group">
-                        <Globe className="w-5 h-5 text-green-400 group-hover:text-green-300" />
+                        <Globe className="w-5 h-5 text-[#FCD535] group-hover:text-[#FCD535]" />
                       </a>
                     )}
                     <button
                       onClick={() => handleCopyAddress(project.creatorWalletAddress)}
                       className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all hover:scale-110 group ml-auto"
                     >
-                      {copied ? <Check className="w-5 h-5 text-green-400" /> : <Share2 className="w-5 h-5 text-gray-400 group-hover:text-white" />}
+                      {copied ? <Check className="w-5 h-5 text-[#FCD535]" /> : <Share2 className="w-5 h-5 text-gray-400 group-hover:text-white" />}
                     </button>
                   </div>
                 </div>
@@ -476,7 +476,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                       onClick={() => setActiveTab(tab)}
                       className={`pb-3 px-2 font-medium transition-all ${
                         activeTab === tab
-                          ? 'text-white border-b-2 border-cyan-400'
+                          ? 'text-white border-b-2 border-[#F7931A]'
                           : 'text-gray-400 hover:text-white'
                       }`}
                     >
@@ -496,7 +496,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           <div className="space-y-6">
             <div className="glass-card p-6 rounded-xl border border-white/10 shadow-xl">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-cyan-400" />
+                <Users className="w-5 h-5 text-[#F7931A]" />
                 Project Info
               </h3>
               <div className="space-y-3 text-sm">
@@ -535,18 +535,18 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 {project.features.vestingEnabled && (
                   <div className="flex justify-between items-center py-2 pt-3 border-t border-white/10">
                     <span className="text-gray-400">Vesting Period</span>
-                    <span className="text-purple-400 font-bold">{project.features.vestingMonths} months</span>
+                    <span className="text-[#F7931A] font-bold">{project.features.vestingMonths} months</span>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="glass-card p-6 rounded-xl border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+            <div className="glass-card p-6 rounded-xl border border-[#F7931A]/20 shadow-lg shadow-[#F7931A]/10">
               <h3 className="text-xl font-bold text-white mb-4">Quick Stats</h3>
               <div className="space-y-3">
                 <div className="bg-white/5 rounded-lg p-3">
                   <div className="text-sm text-gray-400 mb-1">Participants</div>
-                  <div className="text-2xl font-bold text-cyan-400">{project.metrics.totalParticipations}</div>
+                  <div className="text-2xl font-bold text-[#F7931A]">{project.metrics.totalParticipations}</div>
                 </div>
                 <div className="bg-white/5 rounded-lg p-3">
                   <div className="text-sm text-gray-400 mb-1">XLM Contributed</div>

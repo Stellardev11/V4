@@ -389,7 +389,7 @@ export default function SwapPage() {
                 href={`https://stellar.expert/explorer/public/tx/${swapSuccess.hash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 bg-[#FCD535] hover:bg-[#e6c430] text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2 mb-3"
+                className="w-full py-3 bg-[#FCD535] hover:bg-[#F7931A] text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2 mb-3"
               >
                 View on Stellar Expert
                 <ExternalLink size={16} />

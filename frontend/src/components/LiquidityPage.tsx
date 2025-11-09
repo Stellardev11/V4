@@ -440,7 +440,7 @@ export default function LiquidityPage() {
                           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FCD535] to-[#F7931A] flex items-center justify-center text-xs font-bold">
                             {assetA.substring(0, 2)}
                           </div>
-                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold -ml-2">
+                          <div className="w-8 h-8 rounded-full bg-[#F7931A] flex items-center justify-center text-xs font-bold -ml-2">
                             {assetB.substring(0, 2)}
                           </div>
                           <span className="font-semibold text-white ml-2">
@@ -546,7 +546,7 @@ export default function LiquidityPage() {
                 <button
                   onClick={handleAddLiquidity}
                   disabled={isAdding || !assetAAmount || !assetBAmount}
-                  className="w-full mt-4 py-3 bg-[#FCD535] hover:bg-[#e6c430] disabled:bg-gray-600 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2"
+                  className="w-full mt-4 py-3 bg-[#FCD535] hover:bg-[#F7931A] disabled:bg-gray-600 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2"
                 >
                   {isAdding ? (
                     <>
@@ -676,8 +676,8 @@ export default function LiquidityPage() {
         <div className="bg-[#1E2329] rounded-2xl max-w-md w-full border border-[#2B3139]" onClick={(e) => e.stopPropagation()}>
           <div className="p-6">
             <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-[#10B981]/20 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle size={32} className="text-[#10B981]" />
+              <div className="w-16 h-16 bg-[#FCD535]/20 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle size={32} className="text-[#FCD535]" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
                 {txSuccess.type === 'add' ? 'Liquidity Added!' : 'Liquidity Removed!'}
@@ -699,7 +699,7 @@ export default function LiquidityPage() {
                 href={`https://stellar.expert/explorer/public/tx/${txSuccess.hash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 bg-[#FCD535] hover:bg-[#e6c430] text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2 mb-3"
+                className="w-full py-3 bg-[#FCD535] hover:bg-[#F7931A] text-[#0B0E11] font-bold rounded-xl transition-all flex items-center justify-center gap-2 mb-3"
               >
                 View on Stellar Expert
                 <ExternalLink size={16} />
@@ -754,7 +754,7 @@ export default function LiquidityPage() {
           </div>
           <button
             onClick={() => connected ? setShowAddModal(true) : connectWallet()}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#FCD535] hover:bg-[#e6c430] text-[#0B0E11] font-semibold rounded-lg transition-all"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#FCD535] hover:bg-[#F7931A] text-[#0B0E11] font-semibold rounded-lg transition-all"
           >
             <Plus size={18} />
             <span>Add Liquidity</span>
@@ -801,7 +801,7 @@ export default function LiquidityPage() {
             </div>
             <div className="bg-[#1E2329] rounded-xl p-4 border border-[#2B3139]">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp size={18} className="text-green-400" />
+                <TrendingUp size={18} className="text-[#FCD535]" />
                 <span className="text-sm text-gray-400">My Positions</span>
               </div>
               {loadingPositions ? (
@@ -812,7 +812,7 @@ export default function LiquidityPage() {
             </div>
             <div className="bg-[#1E2329] rounded-xl p-4 border border-[#2B3139]">
               <div className="flex items-center gap-2 mb-2">
-                <Plus size={18} className="text-blue-400" />
+                <Plus size={18} className="text-[#F7931A]" />
                 <span className="text-sm text-gray-400">Active Pools</span>
               </div>
               {poolsLoading ? (
@@ -845,7 +845,7 @@ export default function LiquidityPage() {
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FCD535] to-[#F7931A] flex items-center justify-center font-bold text-xs">
                             {assetA.substring(0, 3)}
                           </div>
-                          <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-xs -ml-3 border-2 border-[#1E2329]">
+                          <div className="w-10 h-10 rounded-full bg-[#F7931A] flex items-center justify-center font-bold text-xs -ml-3 border-2 border-[#1E2329]">
                             {assetB.substring(0, 3)}
                           </div>
                         </div>
@@ -863,7 +863,7 @@ export default function LiquidityPage() {
                           setSelectedPool(pool)
                           setShowAddModal(true)
                         }}
-                        className="px-4 py-2 bg-[#FCD535] hover:bg-[#e6c430] text-[#0B0E11] font-medium rounded-lg transition-all text-sm"
+                        className="px-4 py-2 bg-[#FCD535] hover:bg-[#F7931A] text-[#0B0E11] font-medium rounded-lg transition-all text-sm"
                       >
                         Add Liquidity
                       </button>
@@ -887,7 +887,7 @@ export default function LiquidityPage() {
                       </div>
                       <div>
                         <div className="text-xs text-gray-400 mb-1">Fee</div>
-                        <div className="font-semibold text-green-400">
+                        <div className="font-semibold text-[#FCD535]">
                           {pool.fee_bp / 100}%
                         </div>
                       </div>
@@ -910,7 +910,7 @@ export default function LiquidityPage() {
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FCD535] to-[#F7931A] flex items-center justify-center font-bold text-xs">
                             {assetA.substring(0, 3)}
                           </div>
-                          <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-xs -ml-3 border-2 border-[#1E2329]">
+                          <div className="w-10 h-10 rounded-full bg-[#F7931A] flex items-center justify-center font-bold text-xs -ml-3 border-2 border-[#1E2329]">
                             {assetB.substring(0, 3)}
                           </div>
                         </div>
@@ -953,7 +953,7 @@ export default function LiquidityPage() {
                       </div>
                       <div>
                         <div className="text-xs text-gray-400 mb-1">Fee</div>
-                        <div className="font-semibold text-green-400">
+                        <div className="font-semibold text-[#FCD535]">
                           {position.pool.fee_bp / 100}%
                         </div>
                       </div>
@@ -984,7 +984,7 @@ export default function LiquidityPage() {
                       if (connected) setShowAddModal(true)
                       else connectWallet()
                     }}
-                    className="px-6 py-2.5 bg-[#FCD535] hover:bg-[#e6c430] text-[#0B0E11] font-semibold rounded-lg transition-all"
+                    className="px-6 py-2.5 bg-[#FCD535] hover:bg-[#F7931A] text-[#0B0E11] font-semibold rounded-lg transition-all"
                   >
                     Browse Pools
                   </button>
@@ -994,9 +994,9 @@ export default function LiquidityPage() {
           </div>
         )}
 
-        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl flex items-start gap-3">
-          <Info size={18} className="text-blue-400 mt-0.5 flex-shrink-0" />
-          <div className="text-sm text-blue-300">
+        <div className="mt-6 p-4 bg-[#F7931A]/10 border border-[#F7931A]/30 rounded-xl flex items-start gap-3">
+          <Info size={18} className="text-[#F7931A] mt-0.5 flex-shrink-0" />
+          <div className="text-sm text-gray-300">
             <p className="font-semibold mb-1">About Liquidity Pools</p>
             <p className="text-xs">
               These are real liquidity pools from Stellar mainnet. When you add liquidity, you'll receive LP tokens representing your share of the pool. 

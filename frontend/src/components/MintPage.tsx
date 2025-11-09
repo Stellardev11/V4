@@ -85,7 +85,7 @@ export default function MintPage() {
           <div className="max-w-md mx-auto mb-16">
             <button
               onClick={handleMintClick}
-              className="w-full bg-[#FCD535] text-black py-5 rounded-xl font-bold text-lg hover:bg-[#E5C430] transition-all flex items-center justify-center gap-3"
+              className="w-full bg-[#FCD535] text-black py-5 rounded-xl font-bold text-lg hover:bg-[#F7931A] transition-all flex items-center justify-center gap-3"
             >
               <Zap className="w-6 h-6" />
               Mint STAR Points
@@ -119,7 +119,7 @@ export default function MintPage() {
             <button
               onClick={handleMint}
               disabled={minting || !xlmAmount || parseFloat(xlmAmount) < 1}
-              className="w-full bg-[#FCD535] text-black py-4 rounded-lg font-bold hover:bg-[#E5C430] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#FCD535] text-black py-4 rounded-lg font-bold hover:bg-[#F7931A] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {minting ? 'Minting...' : 'Confirm Mint'}
             </button>

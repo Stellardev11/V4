@@ -135,7 +135,7 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
             </div>
             <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-stellar-bright-blue to-lumina-gold transition-all duration-500"
+                className="h-full bg-gradient-to-r from-[#F7931A] to-lumina-gold transition-all duration-500"
                 style={{ width: `${Math.min(progressToLaunch, 100)}%` }}
               ></div>
             </div>
@@ -156,8 +156,8 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
                   <AreaChart data={chartData}>
                     <defs>
                       <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3BA3FF" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#3BA3FF" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#F7931A" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#F7931A" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" />
@@ -179,14 +179,14 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
                         borderRadius: '8px',
                       }}
                       labelStyle={{ color: '#9CA3AF' }}
-                      itemStyle={{ color: '#3BA3FF' }}
+                      itemStyle={{ color: '#F7931A' }}
                       formatter={(value: any) => [`$${value.toFixed(6)}`, 'Price']}
                       labelFormatter={(value) => `Supply: ${(value / 1000000).toFixed(2)}M`}
                     />
                     <Area
                       type="monotone"
                       dataKey="price"
-                      stroke="#3BA3FF"
+                      stroke="#F7931A"
                       strokeWidth={2}
                       fill="url(#colorPrice)"
                     />
@@ -202,7 +202,7 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
                   <span>Price</span>
                 </div>
                 <div className="text-2xl font-bold text-white">${token.price.toFixed(6)}</div>
-                <div className={`text-sm flex items-center gap-1 ${token.priceChange24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <div className={`text-sm flex items-center gap-1 ${token.priceChange24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                   {token.priceChange24h >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                   {Math.abs(token.priceChange24h).toFixed(2)}%
                 </div>
@@ -244,7 +244,7 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
                   onClick={() => setActiveTab('buy')}
                   className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${
                     activeTab === 'buy'
-                      ? 'bg-gradient-to-r from-green-500 to-green-600 text-white'
+                      ? 'bg-gradient-to-r from-[#FCD535] to-[#FCD535] text-white'
                       : 'bg-white/5 text-gray-400 hover:bg-white/10'
                   }`}
                 >
@@ -302,7 +302,7 @@ export default function LaunchCurveTrade({ tokenId = '1' }: LaunchCurveTradeProp
                   disabled={!amount || parseFloat(amount) <= 0}
                   className={`w-full py-4 rounded-lg font-semibold transition-all ${
                     activeTab === 'buy'
-                      ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                      ? 'bg-gradient-to-r from-[#FCD535] to-[#FCD535] hover:from-[#FCD535] hover:to-[#FCD535]'
                       : 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700'
                   } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
                 >

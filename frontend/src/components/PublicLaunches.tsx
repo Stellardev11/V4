@@ -182,7 +182,7 @@ export default function PublicLaunches({ onViewTrading, onViewAirdrop }: PublicL
                   <p className="text-2xl font-bold text-white">${token.price.toFixed(4)}</p>
                   <p
                     className={`text-sm font-medium ${
-                      token.change24h > 0 ? 'text-green-400' : 'text-red-400'
+                      token.change24h > 0 ? 'text-[#FCD535]' : 'text-red-400'
                     }`}
                   >
                     {token.change24h > 0 ? '+' : ''}
@@ -243,7 +243,7 @@ export default function PublicLaunches({ onViewTrading, onViewAirdrop }: PublicL
                   </div>
                   <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-stellar-bright-blue to-lumina-gold transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-[#F7931A] to-lumina-gold transition-all duration-500"
                       style={{ width: `${token.airdropProgress}%` }}
                     ></div>
                   </div>
@@ -253,7 +253,7 @@ export default function PublicLaunches({ onViewTrading, onViewAirdrop }: PublicL
               <div className="flex gap-3">
                 <button
                   onClick={() => onViewTrading?.(token.id)}
-                  className="flex-1 bg-gradient-to-r from-stellar-bright-blue to-blue-600 hover:from-stellar-bright-blue/90 hover:to-blue-600/90 text-white py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-[#F7931A] to-[#F7931A] hover:from-[#F7931A]/90 hover:to-[#F7931A]/90 text-white py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2"
                 >
                   Trade
                   <ArrowRight className="w-4 h-4" />

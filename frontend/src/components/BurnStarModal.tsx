@@ -170,13 +170,13 @@ export default function BurnStarModal({ isOpen, onClose, projectId, projectName,
               {burnAmount && parseFloat(burnAmount) > 0 && (
                 <div className="bg-[#0B0E11] rounded-lg p-4 space-y-3">
                   <div className="flex items-center gap-2 text-sm">
-                    <Flame className="text-orange-500" size={16} />
+                    <Flame className="text-[#F7931A]" size={16} />
                     <span className="text-gray-400">Burn Distribution:</span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-[#1E2329] rounded-lg p-3">
                       <p className="text-xs text-gray-400 mb-1">Destroyed</p>
-                      <p className="text-lg font-bold text-orange-500">
+                      <p className="text-lg font-bold text-[#F7931A]">
                         {(parseFloat(burnAmount) * 0.5).toFixed(2)}
                       </p>
                       <p className="text-xs text-gray-500">50% burned</p>
@@ -192,7 +192,7 @@ export default function BurnStarModal({ isOpen, onClose, projectId, projectName,
                   <div className="pt-3 border-t border-[#2B3139]">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-400">Estimated {projectSymbol}</span>
-                      <span className="text-lg font-bold text-[#0ECB81]">
+                      <span className="text-lg font-bold text-[#FCD535]">
                         ~{estimatedTokens.toLocaleString()}
                       </span>
                     </div>
@@ -208,16 +208,16 @@ export default function BurnStarModal({ isOpen, onClose, projectId, projectName,
               )}
 
               {success && (
-                <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
-                  <CheckCircle className="text-green-500" size={18} />
-                  <p className="text-sm text-green-500">{success}</p>
+                <div className="flex items-center gap-2 p-3 bg-[#FCD535]/10 border border-[#FCD535]/30 rounded-lg">
+                  <CheckCircle className="text-[#FCD535]" size={18} />
+                  <p className="text-sm text-[#FCD535]">{success}</p>
                 </div>
               )}
 
               <button
                 onClick={handleBurn}
                 disabled={loading || !burnAmount || parseFloat(burnAmount) <= 0 || parseFloat(burnAmount) > starBalance}
-                className="w-full py-4 bg-[#FCD535] hover:bg-[#e6c430] disabled:bg-gray-600 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-lg transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 bg-[#FCD535] hover:bg-[#F7931A] disabled:bg-gray-600 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-lg transition-all flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>

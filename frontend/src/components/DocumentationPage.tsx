@@ -134,7 +134,7 @@ export default function DocumentationPage() {
                         labelLine={false}
                         label={({ name, value }) => `${name}: ${value}%`}
                         outerRadius={100}
-                        fill="#8884d8"
+                        fill="#F7931A"
                         dataKey="value"
                       >
                         {[

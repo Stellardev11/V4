@@ -518,10 +518,10 @@ export default function CampaignDetail({ campaignId = '1', onBack }: CampaignDet
               </div>
             </div>
 
-            <div className="glass-card p-6 rounded-xl border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+            <div className="glass-card p-6 rounded-xl border border-[#F7931A]/20 shadow-lg shadow-[#F7931A]/10">
               <h3 className="text-xl font-bold text-white mb-4">Your Progress</h3>
               <div className="text-center mb-4">
-                <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold bg-gradient-to-r from-[#F7931A] to-[#F7931A] bg-clip-text text-transparent mb-2">
                   {tasks.filter(t => t.completed).reduce((sum, t) => sum + parseInt(t.reward), 0)}
                 </div>
                 <div className="text-gray-400">Tokens Earned</div>
@@ -548,17 +548,17 @@ export default function CampaignDetail({ campaignId = '1', onBack }: CampaignDet
               ) : (
                 <div className="space-y-2">
                   {!hasJoined && (
-                    <div className="text-sm text-orange-400 bg-orange-400/10 border border-orange-400/20 rounded-lg p-3">
+                    <div className="text-sm text-[#F7931A] bg-[#F7931A]/10 border border-[#F7931A]/20 rounded-lg p-3">
                       ⚠️ Join the campaign first
                     </div>
                   )}
                   {!allTasksCompleted && hasJoined && (
-                    <div className="text-sm text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 rounded-lg p-3">
+                    <div className="text-sm text-[#FCD535] bg-[#FCD535]/10 border border-[#FCD535]/20 rounded-lg p-3">
                       ⚠️ Complete all tasks to claim
                     </div>
                   )}
                   {!participationFull && (
-                    <div className="text-sm text-blue-400 bg-blue-400/10 border border-blue-400/20 rounded-lg p-3">
+                    <div className="text-sm text-[#F7931A] bg-[#F7931A]/10 border border-[#F7931A]/20 rounded-lg p-3">
                       ℹ️ Waiting for 100% participation
                     </div>
                   )}
@@ -580,9 +580,9 @@ export default function CampaignDetail({ campaignId = '1', onBack }: CampaignDet
                   <div key={entry.rank} className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-all">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                        entry.rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-lumina-gold text-black' : 
+                        entry.rank === 1 ? 'bg-gradient-to-br from-[#FCD535] to-lumina-gold text-black' : 
                         entry.rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-black' :
-                        'bg-gradient-to-br from-orange-400 to-orange-600 text-white'
+                        'bg-gradient-to-br from-[#F7931A] to-[#F7931A] text-white'
                       }`}>
                         #{entry.rank}
                       </div>

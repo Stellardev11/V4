@@ -105,7 +105,7 @@ export default function NewDashboard({ setActiveTab }: DashboardProps) {
       title: 'Launch Curve Trading',
       description: 'Token trades on launch curve with fair price discovery as demand grows.',
       icon: TrendingUp,
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-[#FCD535] to-[#F7931A]',
     },
     {
       step: '5',
@@ -435,7 +435,7 @@ export default function NewDashboard({ setActiveTab }: DashboardProps) {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="text-center p-3 bg-white/5 rounded-lg">
                         <div className="flex items-center justify-center gap-1 mb-1">
-                          <Flame className="w-4 h-4 text-orange-500" />
+                          <Flame className="w-4 h-4 text-[#F7931A]" />
                           <p className="text-xs text-gray-400">STAR Burned</p>
                         </div>
                         <p className="text-lg font-bold text-white">

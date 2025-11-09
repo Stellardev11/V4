@@ -55,7 +55,7 @@ export default function TopNav({ activeTab, setActiveTab }: TopNavProps) {
               <button
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-[#1E2329] hover:bg-[#2B3139] border border-[#2B3139] rounded text-white text-sm transition-all"
               >
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                <div className="w-1.5 h-1.5 bg-[#FCD535] rounded-full animate-pulse" />
                 <span className="text-xs font-medium">{formatAddress(address)}</span>
               </button>
             ) : (

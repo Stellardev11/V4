@@ -48,7 +48,7 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
     }
     if (isActive) {
       return (
-        <span className="flex items-center gap-1 px-2 py-0.5 bg-[#0ECB81]/10 border border-[#0ECB81]/30 rounded text-xs text-[#0ECB81]">
+        <span className="flex items-center gap-1 px-2 py-0.5 bg-[#FCD535]/10 border border-[#FCD535]/30 rounded text-xs text-[#FCD535]">
           <Sparkles size={10} />
           Active
         </span>
@@ -56,7 +56,7 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
     }
     if (isUpcoming) {
       return (
-        <span className="flex items-center gap-1 px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded text-xs text-blue-400">
+        <span className="flex items-center gap-1 px-2 py-0.5 bg-[#F7931A]/10 border border-[#F7931A]/30 rounded text-xs text-[#F7931A]">
           <Clock size={10} />
           Upcoming
         </span>
@@ -139,7 +139,7 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
           </div>
           <div className="bg-[#0B0E11]/50 rounded-lg p-3">
             <div className="flex items-center gap-1.5 mb-1">
-              <Flame size={12} className="text-orange-500" />
+              <Flame size={12} className="text-[#F7931A]" />
               <p className="text-xs text-gray-500">STAR Burned</p>
             </div>
             <p className="text-sm font-bold text-[#FCD535]">{totalBurned.toLocaleString()}</p>
@@ -176,24 +176,24 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-[#0B0E11]/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Flame size={12} className="text-orange-500" />
+            <Flame size={12} className="text-[#F7931A]" />
             <p className="text-xs text-gray-500">Burn Amount</p>
           </div>
           <p className="text-sm font-bold text-[#FCD535]">{burnAmount.toLocaleString()}</p>
         </div>
         <div className="bg-[#0B0E11]/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Sparkles size={12} className="text-yellow-500" />
+            <Sparkles size={12} className="text-[#FCD535]" />
             <p className="text-xs text-gray-500">Rewards</p>
           </div>
           <p className="text-sm font-bold text-white">{rewards.toLocaleString()}</p>
         </div>
         <div className="bg-[#0B0E11]/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <CheckCircle2 size={12} className={isCompleted ? 'text-green-500' : 'text-gray-500'} />
+            <CheckCircle2 size={12} className={isCompleted ? 'text-[#FCD535]' : 'text-gray-500'} />
             <p className="text-xs text-gray-500">Status</p>
           </div>
-          <p className={`text-sm font-bold ${isCompleted ? 'text-green-400' : 'text-white'}`}>
+          <p className={`text-sm font-bold ${isCompleted ? 'text-[#FCD535]' : 'text-white'}`}>
             {isCompleted ? 'Completed' : 'Active'}
           </p>
         </div>
@@ -217,17 +217,17 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-[#0B0E11]/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Droplets size={12} className="text-blue-500" />
+            <Droplets size={12} className="text-[#F7931A]" />
             <p className="text-xs text-gray-500">TVL</p>
           </div>
           <p className="text-sm font-bold text-white">${(tvl / 1000).toFixed(1)}K</p>
         </div>
         <div className="bg-[#0B0E11]/50 rounded-lg p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <TrendingUp size={12} className="text-green-500" />
+            <TrendingUp size={12} className="text-[#FCD535]" />
             <p className="text-xs text-gray-500">APY</p>
           </div>
-          <p className="text-sm font-bold text-green-400">{apy}%</p>
+          <p className="text-sm font-bold text-[#FCD535]">{apy}%</p>
         </div>
         <div className="bg-[#0B0E11]/50 rounded-lg p-3 col-span-2">
           <div className="flex items-center gap-1.5 mb-1">
@@ -280,7 +280,7 @@ export default function ProjectCard({ project, onSelect, onAction, actionLabel }
           onAction?.(project)
         }}
         disabled={isCompleted || isUpcoming}
-        className="w-full py-3 bg-gradient-to-r from-[#FCD535] to-[#F7931A] hover:from-[#e6c430] hover:to-[#e68510] disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FCD535]/20"
+        className="w-full py-3 bg-gradient-to-r from-[#FCD535] to-[#F7931A] hover:from-[#F7931A] hover:to-[#FCD535] disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-[#0B0E11] font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#FCD535]/20"
       >
         {icon}
         <span>{buttonText}</span>

@@ -67,7 +67,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
               onClick={handleCopyAddress}
               className="p-2 hover:bg-white/10 rounded-lg transition-all"
             >
-              {copied ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
+              {copied ? <Check size={18} className="text-[#FCD535]" /> : <Copy size={18} />}
             </button>
             <button className="p-2 hover:bg-white/10 rounded-lg transition-all">
               <Share2 size={18} />
@@ -80,7 +80,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
             {project.logoUrl ? (
               <img src={project.logoUrl} alt={project.tokenName} className="w-14 h-14 rounded-xl ring-2 ring-white/10" />
             ) : (
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold ring-2 ring-white/10">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#F7931A] to-[#F7931A] flex items-center justify-center text-white text-2xl font-bold ring-2 ring-white/10">
                 {project.tokenSymbol[0]}
               </div>
             )}
@@ -100,13 +100,13 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
             </div>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-2xl font-bold">${(marketCap / 1000).toFixed(2)}K</span>
-              <span className={`text-sm font-medium ${change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              <span className={`text-sm font-medium ${change24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                 {change24h >= 0 ? '+' : ''}{change24h.toFixed(2)}% 24hr
               </span>
             </div>
             <div className="relative h-2 bg-white/5 rounded-full overflow-hidden">
               <div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-full transition-all"
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#FCD535] to-[#F7931A] rounded-full transition-all"
                 style={{ width: `${launchProgress}%` }}
               />
             </div>
@@ -114,7 +114,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
         </div>
 
         <div className="container-custom max-w-7xl px-4 flex gap-4 text-sm border-b border-white/10">
-          <button className="pb-2 border-b-2 border-emerald-500 font-medium">Overview</button>
+          <button className="pb-2 border-b-2 border-[#FCD535] font-medium">Overview</button>
           <button className="pb-2 text-gray-400 hover:text-white transition-colors">Holders</button>
           <button className="pb-2 text-gray-400 hover:text-white transition-colors">Trades</button>
         </div>
@@ -129,7 +129,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
                   <h3 className="text-sm font-medium text-gray-400 mb-1">{project.tokenSymbol}/XLM Market Cap (USD)</h3>
                   <div className="flex items-baseline gap-2">
                     <span className="text-xl font-bold">${(marketCap / 1000).toFixed(2)}K</span>
-                    <span className={`text-sm ${change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                    <span className={`text-sm ${change24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                       {change24h >= 0 ? '+' : ''}{change24h.toFixed(2)}%
                     </span>
                   </div>
@@ -142,8 +142,8 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
                   <AreaChart data={chartData}>
                     <defs>
                       <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity={0.3} />
-                        <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                        <stop offset="0%" stopColor="#FCD535" stopOpacity={0.3} />
+                        <stop offset="100%" stopColor="#FCD535" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <XAxis 
@@ -161,7 +161,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
                     <Area
                       type="monotone"
                       dataKey="price"
-                      stroke="#10b981"
+                      stroke="#FCD535"
                       strokeWidth={2}
                       fill="url(#priceGradient)"
                     />
@@ -196,30 +196,30 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-[#1a1a1a] rounded-lg p-4 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-cyan-400" />
+                  <TrendingUp className="w-4 h-4 text-[#F7931A]" />
                   <p className="text-xs text-gray-400">24h Volume</p>
                 </div>
                 <p className="text-base font-semibold">${(volume24h / 1000).toFixed(1)}K</p>
               </div>
               <div className="bg-[#1a1a1a] rounded-lg p-4 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <Activity className="w-4 h-4 text-green-400" />
+                  <Activity className="w-4 h-4 text-[#FCD535]" />
                   <p className="text-xs text-gray-400">Current Price</p>
                 </div>
                 <p className="text-base font-semibold">${price.toFixed(8)}</p>
               </div>
               <div className="bg-[#1a1a1a] rounded-lg p-4 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <Flame className="w-4 h-4 text-orange-400" />
+                  <Flame className="w-4 h-4 text-[#F7931A]" />
                   <p className="text-xs text-gray-400">24h Change</p>
                 </div>
-                <p className={`text-base font-semibold ${change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                <p className={`text-base font-semibold ${change24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                   {change24h >= 0 ? '+' : ''}{change24h.toFixed(2)}%
                 </p>
               </div>
               <div className="bg-[#1a1a1a] rounded-lg p-4 border border-white/10">
                 <div className="flex items-center gap-2 mb-2">
-                  <Users className="w-4 h-4 text-purple-400" />
+                  <Users className="w-4 h-4 text-[#F7931A]" />
                   <p className="text-xs text-gray-400">Holders</p>
                 </div>
                 <p className="text-base font-semibold">{holders}</p>
@@ -236,7 +236,7 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
                   </div>
                   <div className="relative h-3 bg-white/5 rounded-full overflow-hidden">
                     <div 
-                      className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-500 rounded-full"
+                      className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#F7931A] via-[#F7931A] to-[#FCD535] rounded-full"
                       style={{ width: `${launchProgress}%` }}
                     />
                   </div>
@@ -331,8 +331,8 @@ export default function TokenDetail({ project, onBack }: TokenDetailProps) {
             </div>
 
             {project.features.vestingEnabled && (
-              <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-lg p-4 border border-purple-500/20">
-                <h3 className="text-sm font-semibold mb-2 text-purple-400">Vesting Enabled</h3>
+              <div className="bg-gradient-to-br from-[#F7931A]/10 to-[#F7931A]/5 rounded-lg p-4 border border-[#F7931A]/20">
+                <h3 className="text-sm font-semibold mb-2 text-[#F7931A]">Vesting Enabled</h3>
                 <p className="text-xs text-gray-400">
                   Tokens are vested over {project.features.vestingMonths} months
                 </p>

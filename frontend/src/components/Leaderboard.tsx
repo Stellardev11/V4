@@ -43,9 +43,9 @@ export default function Leaderboard() {
   };
 
   const getMedalColor = (rank: number) => {
-    if (rank === 1) return 'text-[#FFD700]';
-    if (rank === 2) return 'text-[#C0C0C0]';
-    if (rank === 3) return 'text-[#CD7F32]';
+    if (rank === 1) return 'text-[#FCD535]';
+    if (rank === 2) return 'text-[#F7931A]';
+    if (rank === 3) return 'text-[#F7931A]';
     return 'text-gray-400';
   };
 
@@ -87,7 +87,7 @@ export default function Leaderboard() {
           <p className="text-gray-400 mb-6">{error}</p>
           <button
             onClick={fetchLeaderboard}
-            className="w-full bg-[#FCD535] text-black py-3 rounded-lg font-bold hover:bg-[#E5C430] transition-all"
+            className="w-full bg-[#FCD535] text-black py-3 rounded-lg font-bold hover:bg-[#F7931A] transition-all"
           >
             Try Again
           </button>

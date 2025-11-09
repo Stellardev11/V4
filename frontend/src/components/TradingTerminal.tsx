@@ -77,7 +77,7 @@ export default function TradingTerminal({ tokenId, onBack }: TradingTerminalProp
             </div>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-2xl font-bold">${(token.marketCap / 1000).toFixed(2)}K</span>
-              <span className={`text-sm font-medium ${token.change24h >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              <span className={`text-sm font-medium ${token.change24h >= 0 ? 'text-[#FCD535]' : 'text-red-400'}`}>
                 +${(token.marketCap * 0.15 / 1000).toFixed(1)}K (+{token.change24h.toFixed(2)}%) 24hr
               </span>
             </div>
