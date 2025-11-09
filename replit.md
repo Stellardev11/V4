@@ -1,24 +1,23 @@
 # StellForge - The GameFi + DeFi Token-Launch App
 
 ## Overview
-StellForge is a professional token creation and DEX platform built on the Stellar (XLM) blockchain. It enables users to create and manage tokens, swap assets on Stellar DEX, provide liquidity, and manage project airdrops within a clean, professional DeFi interface. The platform focuses on simplicity, security, and seamless Stellar blockchain integration, providing users with essential DeFi tools in a modern, minimal interface.
+StellForge is a Fair Token Launch Platform built on the Stellar (XLM) blockchain featuring a STAR points minting system. Users convert XLM to STAR points at a fixed rate (1 XLM = 10 STAR), and STAR holders receive 60% of the SLF token supply at Token Generation Event (TGE). The platform emphasizes minimal, professional design with wallet-gated features and a premium user experience focused on fair token distribution.
 
 ## User Preferences
-- **Professional Minimal Design**: Clean, focused DeFi interface with simplified navigation and clear feature separation
-- **Color Scheme**: Minimal professional palette (#0B0E11 dark bg, #1E2329 cards, #FCD535 yellow accent, #F7931A orange accent)
-- **Navigation**: Three main tabs (Swap, Liquidity, Projects) with professional StellForge logo and wallet button
-- **Compact Layouts**: Professional card layouts with clean spacing and organized grids
-- **Typography**: "Projects" terminology for airdrop campaigns throughout the app
-- **Stellar DEX Focus**: Native integration with Stellar blockchain for swaps and liquidity provision
+- **Professional Minimal Design**: Clean, focused interface with NO multi-color "ponzi" gradients - strictly minimal aesthetic
+- **Color Scheme**: Restrained dark palette (#0B0E11 dark bg, #1A1D23/#1E2329 cards) with ONLY gold (#FCD535) for STAR branding
+- **3D Assets**: Premium 3D golden STAR token logo for visual appeal
+- **Wallet-First**: All features require wallet connection - comprehensive wallet gating throughout app
+- **Grid-Based Layouts**: Clean, organized grids following crypto industry tokenomics standards
+- **Navigation**: Simple, professional navigation with wallet connection prominence
 - Mobile-first responsive design with CSS Grid layouts
 - Professional icons throughout (Lucide React icons)
-- Dark theme with professional color palette
+- Dark theme with minimal, professional color palette
 - Clean, organized component structure
 - No Replit-specific config files in repository
 - Production-ready code with proper error handling
 - Type-safe TypeScript throughout frontend
-- Generous spacing with responsive breakpoints (sm, md, lg, xl)
-- Framer Motion animations for professional transitions
+- No unnecessary animations - focus on content and clarity
 
 ## System Architecture
 StellForge is structured into several layers:
