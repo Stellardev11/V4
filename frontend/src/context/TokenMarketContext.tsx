@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode, useMemo } from 'react'
+import { useProjects } from '../hooks/useProjects'
+import { Project, ProjectType } from '../types/project'
 
 interface TokenData {
   id: string
@@ -30,168 +32,70 @@ interface TokenMarketContextType {
   trendingTokens: TokenData[]
   launchedTokens: TokenData[]
   airdropProjects: TokenData[]
+  isLoading: boolean
+  error: Error | null
 }
 
 const TokenMarketContext = createContext<TokenMarketContextType | undefined>(undefined)
 
-const mockTokens: TokenData[] = [
-  {
-    id: '1',
-    name: 'Stellar Pepe',
-    symbol: 'SPEPE',
-    image: '/stellforge-icon.png',
-    marketCap: 327000,
-    price: 0.00024,
-    change24h: 59.25,
-    volume24h: 91800,
-    holders: 1820,
-    launchProgress: 100,
-    creator: 'GABC...XYZ',
-    description: 'The first meme coin on Stellar with launch curve',
-    type: 'launched',
-    createdAt: '6m ago',
-    twitter: 'https://twitter.com/stellarpepe',
-    discord: 'https://discord.gg/stellarpepe'
-  },
-  {
-    id: '2',
-    name: 'Moon Lumens',
-    symbol: 'MLUM',
-    image: '/stellforge-icon.png',
-    marketCap: 287000,
-    price: 0.00018,
-    change24h: 142.5,
-    volume24h: 54190,
-    holders: 1612,
-    launchProgress: 100,
-    creator: 'GDEF...ABC',
-    description: 'Community-driven token heading to the moon',
-    type: 'launched',
-    createdAt: '2h ago',
-    twitter: 'https://twitter.com/moonlumens',
-    discord: 'https://discord.gg/moonlumens'
-  },
-  {
-    id: '3',
-    name: 'Stellar Doge',
-    symbol: 'SDOGE',
-    image: '/stellforge-icon.png',
-    marketCap: 524200,
-    price: 0.000062,
-    change24h: 391.95,
-    volume24h: 7460,
-    holders: 2284,
-    launchProgress: 100,
-    creator: 'GHIJ...DEF',
-    description: 'Much wow, very Stellar',
-    type: 'launched',
-    createdAt: '5m ago',
-    twitter: 'https://twitter.com/stellardoge',
-    discord: 'https://discord.gg/stellardoge'
-  },
-  {
-    id: '4',
-    name: 'Cyber Stellar',
-    symbol: 'CYBER',
-    image: '/stellforge-icon.png',
-    marketCap: 456000,
-    price: 0.00032,
-    change24h: 78.4,
-    volume24h: 82300,
-    holders: 1520,
-    launchProgress: 100,
-    creator: 'GXYZ...ABC',
-    description: 'Futuristic DeFi protocol on Stellar blockchain',
-    type: 'launched',
-    createdAt: '1h ago',
-    twitter: 'https://twitter.com/cyberstellar',
-    discord: 'https://discord.gg/cyberstellar'
-  },
-  {
-    id: '5',
-    name: 'Neon Finance',
-    symbol: 'NEON',
-    image: '/stellforge-icon.png',
-    marketCap: 198000,
-    price: 0.00015,
-    change24h: 124.8,
-    volume24h: 45600,
-    holders: 980,
-    launchProgress: 100,
-    creator: 'GNEON...XYZ',
-    description: 'Next-gen yield farming protocol with neon aesthetics',
-    type: 'launched',
-    createdAt: '3h ago',
-    twitter: 'https://twitter.com/neonfinance',
-    discord: 'https://discord.gg/neonfinance'
-  },
-  {
-    id: '6',
-    name: 'Quantum Lumens',
-    symbol: 'QLUM',
-    image: '/stellforge-icon.png',
-    marketCap: 612000,
-    price: 0.00041,
-    change24h: 215.6,
-    volume24h: 128400,
-    holders: 2450,
-    launchProgress: 100,
-    creator: 'GQNTM...DEF',
-    description: 'Revolutionary quantum-resistant crypto token',
-    type: 'launched',
-    createdAt: '4h ago',
-    twitter: 'https://twitter.com/quantumlumens',
-    discord: 'https://discord.gg/quantumlumens'
-  },
-  {
-    id: '7',
-    name: 'DeFi Airdrop Campaign',
-    symbol: 'DEFI',
-    image: '/stellforge-icon.png',
-    marketCap: 50000,
-    price: 0.0001,
+function mapProjectToTokenData(project: Project): TokenData {
+  const isLaunched = project.features.tokenCreated || project.status === 'completed'
+  const totalSupplyNum = parseFloat(project.totalSupply) || 1000000
+  const xlmContributed = parseFloat(project.metrics.totalXlmContributed) || 0
+  const estimatedPrice = xlmContributed > 0 ? xlmContributed / totalSupplyNum : 0.0001
+  const estimatedMarketCap = estimatedPrice * totalSupplyNum
+  
+  const now = new Date().getTime()
+  const endDate = new Date(project.event.endDate).getTime()
+  const startDate = new Date(project.event.startDate).getTime()
+  const totalDuration = endDate - startDate
+  const elapsed = now - startDate
+  const progress = totalDuration > 0 ? Math.min(100, Math.max(0, (elapsed / totalDuration) * 100)) : 0
+
+  return {
+    id: project.id,
+    name: project.tokenName,
+    symbol: project.tokenSymbol,
+    image: project.logoUrl || '/stellforge-icon.png',
+    marketCap: estimatedMarketCap,
+    price: estimatedPrice,
     change24h: 0,
-    volume24h: 0,
-    holders: 0,
-    launchProgress: 0,
-    creator: 'GKLM...GHI',
-    description: 'Complete tasks to earn DEFI tokens',
-    type: 'airdrop',
-    createdAt: '3m ago',
-    status: 'active',
-    totalStarBurned: 12500,
-    eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-    totalParticipations: 245
-  },
-  {
-    id: '8',
-    name: 'Community Rewards',
-    symbol: 'CREW',
-    image: '/stellforge-icon.png',
-    marketCap: 100000,
-    price: 0.0002,
-    change24h: 0,
-    volume24h: 0,
-    holders: 0,
-    launchProgress: 0,
-    creator: 'GNOP...JKL',
-    description: 'Airdrop for early supporters and task completers',
-    type: 'airdrop',
-    createdAt: '1h ago',
-    status: 'active',
-    totalStarBurned: 8320,
-    eventEndDate: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000).toISOString(),
-    totalParticipations: 178
+    volume24h: xlmContributed,
+    holders: project.metrics.totalParticipations || 0,
+    launchProgress: isLaunched ? 100 : progress,
+    creator: project.creatorWalletAddress,
+    description: project.description,
+    type: project.projectType === ProjectType.AIRDROP ? 'airdrop' : 'launched',
+    createdAt: new Date(project.createdAt).toLocaleString(),
+    status: project.status,
+    twitter: project.twitter,
+    discord: project.discord,
+    totalStarBurned: parseFloat(project.metrics.totalStarBurned) || 0,
+    eventEndDate: project.event.endDate,
+    totalParticipations: project.metrics.totalParticipations || 0,
   }
-]
+}
 
 export function TokenMarketProvider({ children }: { children: ReactNode }) {
-  const [tokens] = useState<TokenData[]>(mockTokens)
   const [selectedToken, setSelectedToken] = useState<TokenData | null>(null)
+  const { data: projects, isLoading, error } = useProjects()
 
-  const trendingTokens = tokens.filter(t => t.type === 'launched').slice(0, 10)
-  const launchedTokens = tokens.filter(t => t.type === 'launched')
-  const airdropProjects = tokens.filter(t => t.type === 'airdrop')
+  const tokens = useMemo(() => {
+    if (!projects || projects.length === 0) return []
+    return projects.map(mapProjectToTokenData)
+  }, [projects])
+
+  const trendingTokens = useMemo(() => {
+    return tokens.filter((t: TokenData) => t.type === 'launched').slice(0, 10)
+  }, [tokens])
+
+  const launchedTokens = useMemo(() => {
+    return tokens.filter((t: TokenData) => t.type === 'launched')
+  }, [tokens])
+
+  const airdropProjects = useMemo(() => {
+    return tokens.filter((t: TokenData) => t.type === 'airdrop')
+  }, [tokens])
 
   return (
     <TokenMarketContext.Provider value={{
@@ -200,7 +104,9 @@ export function TokenMarketProvider({ children }: { children: ReactNode }) {
       setSelectedToken,
       trendingTokens,
       launchedTokens,
-      airdropProjects
+      airdropProjects,
+      isLoading,
+      error: error as Error | null
     }}>
       {children}
     </TokenMarketContext.Provider>

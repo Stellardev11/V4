@@ -6,18 +6,22 @@ import { createToken } from './tokenService';
 
 interface CreateProjectData {
   creatorWalletAddress: string;
-  tokenName: string;
-  tokenSymbol: string;
-  totalSupply: number;
-  decimals: number;
-  description: string;
+  tokenName?: string;
+  tokenSymbol?: string;
+  totalSupply?: number;
+  decimals?: number;
+  description?: string;
   logoUrl?: string;
-  airdropPercent: number;
-  liquidityPercent: number;
-  initialLiquidityXLM: number;
-  eventDurationDays: number;
-  vestingEnabled: boolean;
+  airdropPercent?: number;
+  liquidityPercent?: number;
+  initialLiquidityXLM?: number;
+  eventDurationDays?: number;
+  vestingEnabled?: boolean;
   vestingMonths?: number;
+  projectType?: string;
+  sorobanContractId?: string;
+  assetCode?: string;
+  assetIssuer?: string;
 }
 
 interface ParticipateData {
@@ -31,29 +35,58 @@ export class ProjectService {
   async createProject(data: CreateProjectData) {
     const creatorWallet = await mintService.getOrCreateWallet(data.creatorWalletAddress);
 
-    const creatorPercent = 100 - data.airdropPercent - data.liquidityPercent;
+    const tokenName = data.tokenName ?? '';
+    const tokenSymbol = data.tokenSymbol ?? '';
+    const totalSupply = data.totalSupply ?? 1000000;
+    const decimals = data.decimals ?? 7;
+    const description = data.description ?? '';
+    
+    let airdropPercent = data.airdropPercent ?? 20;
+    let liquidityPercent = data.liquidityPercent ?? 20;
+    
+    const total = airdropPercent + liquidityPercent;
+    if (total > 100) {
+      airdropPercent = (airdropPercent / total) * 80;
+      liquidityPercent = (liquidityPercent / total) * 80;
+    }
+    
+    const creatorPercent = 100 - airdropPercent - liquidityPercent;
+    
+    if (creatorPercent < 0 || airdropPercent < 0 || liquidityPercent < 0) {
+      throw new Error('Invalid percentage allocation: percentages must be non-negative and sum to at most 100%');
+    }
+    
+    const initialLiquidityXLM = data.initialLiquidityXLM ?? 1000;
+    const eventDurationDays = data.eventDurationDays ?? 7;
+    const vestingEnabled = data.vestingEnabled ?? false;
+    const projectType = data.projectType ?? 'token_launch';
+
     const eventStartDate = new Date();
-    const eventEndDate = new Date(Date.now() + data.eventDurationDays * 24 * 60 * 60 * 1000);
+    const eventEndDate = new Date(Date.now() + eventDurationDays * 24 * 60 * 60 * 1000);
 
     const [project] = await db.insert(projects).values({
       creatorWalletId: creatorWallet.id,
       creatorWalletAddress: data.creatorWalletAddress,
-      tokenName: data.tokenName,
-      tokenSymbol: data.tokenSymbol,
-      totalSupply: data.totalSupply.toString(),
-      decimals: data.decimals,
-      description: data.description,
+      projectType,
+      tokenName,
+      tokenSymbol,
+      totalSupply: totalSupply.toString(),
+      decimals,
+      description,
       logoUrl: data.logoUrl,
-      airdropPercent: data.airdropPercent.toString(),
-      liquidityPercent: data.liquidityPercent.toString(),
+      airdropPercent: airdropPercent.toString(),
+      liquidityPercent: liquidityPercent.toString(),
       creatorPercent: creatorPercent.toString(),
-      initialLiquidityXLM: data.initialLiquidityXLM.toString(),
-      eventDurationDays: data.eventDurationDays,
+      initialLiquidityXLM: initialLiquidityXLM.toString(),
+      eventDurationDays,
       eventStartDate,
       eventEndDate,
       status: 'active',
-      vestingEnabled: data.vestingEnabled,
+      vestingEnabled,
       vestingMonths: data.vestingMonths,
+      sorobanContractId: data.sorobanContractId,
+      assetCode: data.assetCode,
+      assetIssuer: data.assetIssuer,
     }).returning();
 
     return project;

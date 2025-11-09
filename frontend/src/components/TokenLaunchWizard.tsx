@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Rocket, ArrowRight, CheckCircle, Upload, Coins, HelpCircle, TrendingUp, Gift, Calendar, Lock, Loader2 } from 'lucide-react'
 import { useWallet } from '../context/WalletContext'
-import { validateAllocation, validateLiquidityXLM, validateEventDuration } from '../utils/validation'
+import { validateAllocation } from '../utils/validation'
 import { createStellarToken, completeTokenIssuance } from '../utils/stellarToken'
 import { contractService } from '../services/contractService'
 
@@ -67,26 +67,6 @@ export default function TokenLaunchWizard() {
   }
 
   const handleNext = () => {
-    if (step === 1) {
-      if (!formData.tokenName || !formData.tokenSymbol || !formData.totalSupply || !formData.description) {
-        alert('Please fill in all required fields')
-        return
-      }
-    }
-    
-    if (step === 2) {
-      const allocation = getAllocation()
-      if (!allocation.valid) {
-        alert(allocation.error || 'Invalid allocation')
-        return
-      }
-      const liquidityValidation = validateLiquidityXLM(parseInt(formData.initialLiquidityXLM || '0'))
-      if (!liquidityValidation.valid) {
-        alert(liquidityValidation.error || 'Invalid liquidity amount')
-        return
-      }
-    }
-    
     if (step < 3) setStep(step + 1)
   }
 
@@ -97,24 +77,6 @@ export default function TokenLaunchWizard() {
   const handleSubmit = async () => {
     if (!connected || !address) {
       connectWallet()
-      return
-    }
-    
-    const allocation = getAllocation()
-    if (!allocation.valid) {
-      alert(allocation.error || 'Invalid allocation')
-      return
-    }
-    
-    const liquidityValidation = validateLiquidityXLM(parseInt(formData.initialLiquidityXLM || '0'))
-    if (!liquidityValidation.valid) {
-      alert(liquidityValidation.error)
-      return
-    }
-    
-    const eventValidation = validateEventDuration(parseInt(formData.eventDurationDays || '0'))
-    if (!eventValidation.valid) {
-      alert(eventValidation.error)
       return
     }
 
@@ -131,7 +93,6 @@ export default function TokenLaunchWizard() {
         mintable: false,
         burnable: false,
         userAddress: address,
-        isTestnet: true, // Use testnet for demo
       })
 
       if (!tokenResult.success && tokenResult.message === 'NEEDS_TRUSTLINE_SIGNATURE') {
@@ -148,8 +109,7 @@ export default function TokenLaunchWizard() {
               tokenResult.assetCode,
               tokenResult.issuerSecretKey,
               address,
-              formData.totalSupply,
-              true
+              formData.totalSupply
             )
 
             if (!issuanceResult.success) {
@@ -175,6 +135,51 @@ export default function TokenLaunchWizard() {
             setCreationStatus('Signing campaign registration...')
             const campaignResult = await signAndSubmitTransaction(campaignXDR)
             console.log('Campaign registration result:', campaignResult)
+
+            setCreationStatus('Saving project data...')
+            
+            try {
+              const network = import.meta.env.VITE_STELLAR_NETWORK || 'testnet'
+              const contractId = network === 'mainnet' 
+                ? import.meta.env.VITE_LAUNCH_MANAGER_CONTRACT_ID_MAINNET 
+                : import.meta.env.VITE_LAUNCH_MANAGER_CONTRACT_ID_TESTNET
+
+              const projectData = {
+                creatorWalletAddress: address,
+                tokenName: formData.tokenName,
+                tokenSymbol: formData.tokenSymbol,
+                totalSupply: formData.totalSupply,
+                decimals: formData.decimals,
+                description: formData.description,
+                airdropPercent: parseInt(formData.airdropPercent),
+                liquidityPercent: parseInt(formData.liquidityPercent),
+                initialLiquidityXLM: parseInt(formData.initialLiquidityXLM),
+                eventDurationDays: parseInt(formData.eventDurationDays),
+                vestingEnabled: formData.vestingEnabled,
+                vestingMonths: formData.vestingEnabled ? parseInt(formData.vestingMonths) : null,
+                projectType: 'token_launch',
+                sorobanContractId: contractId,
+                assetCode: tokenResult.assetCode,
+                assetIssuer: tokenResult.issuerPublicKey,
+              }
+
+              const response = await fetch('/api/projects/create', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(projectData),
+              })
+
+              if (!response.ok) {
+                console.error('Failed to save project data:', await response.text())
+              } else {
+                const result = await response.json()
+                console.log('Project saved successfully:', result)
+              }
+            } catch (error) {
+              console.error('Error saving project data:', error)
+            }
 
             setCreationStatus('Success! Your token launch campaign is live! 🎉')
             

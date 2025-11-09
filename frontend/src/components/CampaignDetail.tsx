@@ -2,9 +2,18 @@ import { useState } from 'react'
 import { Share2, Trophy, Users, Clock, CheckCircle2, Twitter, MessageCircle, Send, Globe, Copy, Check, Coins, X } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import { useWallet } from '../context/WalletContext'
+import { useProject } from '../hooks/useProjects'
+import { ProjectType } from '../types/project'
+import ProjectDetail from './ProjectDetail'
 
-export default function CampaignDetail({ campaignId = '1' }: { campaignId?: string }) {
+interface CampaignDetailProps {
+  campaignId?: string
+  onBack?: () => void
+}
+
+export default function CampaignDetail({ campaignId = '1', onBack }: CampaignDetailProps) {
   const { connected, connectWallet } = useWallet()
+  const { data: project, isLoading, error } = useProject(campaignId)
   
   const [completedTasks, setCompletedTasks] = useState<Set<number>>(new Set())
   const [hasJoined, setHasJoined] = useState(false)
@@ -16,7 +25,8 @@ export default function CampaignDetail({ campaignId = '1' }: { campaignId?: stri
   const [showJoinModal, setShowJoinModal] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
-  const campaign = {
+  // Fallback mock data for development/demo
+  const mockCampaign = {
     id: campaignId,
     name: 'MOON Token',
     symbol: 'MOON',
@@ -47,6 +57,57 @@ export default function CampaignDetail({ campaignId = '1' }: { campaignId?: stri
     ]
   }
 
+  // If project data is available and it's not an AIRDROP type, use ProjectDetail component
+  if (project && project.projectType !== ProjectType.AIRDROP) {
+    return <ProjectDetail project={project} onBack={onBack} />
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-xl">Loading campaign...</div>
+      </div>
+    )
+  }
+
+  // Error state
+  if (error && !project) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-red-400 text-xl">Error loading campaign: {error.message}</div>
+      </div>
+    )
+  }
+
+  // Use real project data if available, otherwise use mock data for demo
+  const campaign = project ? {
+    id: project.id,
+    name: project.tokenName,
+    symbol: project.tokenSymbol,
+    logo: project.logoUrl || '/stellforge-icon.png',
+    creator: project.creatorWalletAddress,
+    totalSupply: project.totalSupply,
+    totalAirdrop: (parseFloat(project.totalSupply) * project.allocation.airdrop / 100).toString(),
+    claimed: project.metrics.totalStarDistributed,
+    maxParticipants: 100,
+    joinFee: 1,
+    endDate: new Date(project.event.endDate),
+    socialLinks: {
+      twitter: project.twitter,
+      discord: project.discord,
+      telegram: undefined,
+      website: project.website
+    },
+    allocation: project.allocation,
+    baseTasks: [
+      { id: 1, title: 'Follow on Twitter', type: 'follow_twitter', reward: '100', url: project.twitter || '' },
+      { id: 2, title: 'Join Discord', type: 'join_discord', reward: '100', url: project.discord || '' },
+      { id: 3, title: 'Visit Website', type: 'visit_website', reward: '100', url: project.website || '' },
+      { id: 4, title: 'Refer Friends', type: 'refer_friend', reward: '50', minInvites: 3 },
+    ]
+  } : mockCampaign
+
   const tasks = campaign.baseTasks.map(task => ({
     ...task,
     completed: completedTasks.has(task.id)
@@ -62,7 +123,7 @@ export default function CampaignDetail({ campaignId = '1' }: { campaignId?: stri
   const pieData = [
     { name: 'Creator', value: campaign.allocation.creator, color: '#FFD700' },
     { name: 'Airdrop Pool', value: campaign.allocation.airdrop, color: '#00D9FF' },
-    { name: 'Referral Bonus', value: campaign.allocation.referral, color: '#9D4EDD' },
+    { name: 'Liquidity', value: 'liquidity' in campaign.allocation ? campaign.allocation.liquidity : ('referral' in campaign.allocation ? (campaign.allocation as any).referral : 20), color: '#9D4EDD' },
   ]
 
   const generateUniqueReferralCode = () => {

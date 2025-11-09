@@ -1,7 +1,8 @@
 import * as StellarSdk from '@stellar/stellar-sdk'
 
-const TESTNET_SERVER = 'https://horizon-testnet.stellar.org'
-const MAINNET_SERVER = 'https://horizon.stellar.org'
+const NETWORK = import.meta.env.VITE_STELLAR_NETWORK || 'testnet'
+const HORIZON_URL = import.meta.env.VITE_HORIZON_URL || 
+  (NETWORK === 'mainnet' ? 'https://horizon.stellar.org' : 'https://horizon-testnet.stellar.org')
 
 export interface TokenParams {
   name: string
@@ -11,7 +12,7 @@ export interface TokenParams {
   mintable: boolean
   burnable: boolean
   userAddress: string
-  isTestnet: boolean
+  isTestnet?: boolean
 }
 
 export interface TokenCreationResult {
@@ -31,14 +32,13 @@ export async function createStellarToken(params: TokenParams): Promise<TokenCrea
       symbol,
       totalSupply,
       userAddress,
-      isTestnet,
     } = params
 
-    const serverUrl = isTestnet ? TESTNET_SERVER : MAINNET_SERVER
+    const isTestnet = params.isTestnet !== undefined ? params.isTestnet : NETWORK === 'testnet'
     const networkPassphrase = isTestnet
       ? StellarSdk.Networks.TESTNET
       : StellarSdk.Networks.PUBLIC
-    const server = new StellarSdk.Horizon.Server(serverUrl)
+    const server = new StellarSdk.Horizon.Server(HORIZON_URL)
 
     const issuerKeypair = StellarSdk.Keypair.random()
     console.log('Generated issuer keypair:', issuerKeypair.publicKey())
@@ -119,14 +119,14 @@ export async function completeTokenIssuance(
   issuerSecretKey: string,
   userAddress: string,
   amount: string,
-  isTestnet: boolean
+  isTestnet?: boolean
 ): Promise<TokenCreationResult> {
   try {
-    const serverUrl = isTestnet ? TESTNET_SERVER : MAINNET_SERVER
-    const networkPassphrase = isTestnet
+    const useTestnet = isTestnet !== undefined ? isTestnet : NETWORK === 'testnet'
+    const networkPassphrase = useTestnet
       ? StellarSdk.Networks.TESTNET
       : StellarSdk.Networks.PUBLIC
-    const server = new StellarSdk.Horizon.Server(serverUrl)
+    const server = new StellarSdk.Horizon.Server(HORIZON_URL)
 
     const issuerKeypair = StellarSdk.Keypair.fromSecret(issuerSecretKey)
     const customAsset = new StellarSdk.Asset(assetCode, issuerKeypair.publicKey())

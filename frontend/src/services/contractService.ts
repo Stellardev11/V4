@@ -1,19 +1,17 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
 
-const CONTRACT_ID = import.meta.env.VITE_CONTRACT_ID || 'CDUMMY_CONTRACT_ID_WILL_BE_SET_AFTER_DEPLOYMENT';
-const NETWORK = import.meta.env.VITE_NETWORK || 'testnet';
+const NETWORK = import.meta.env.VITE_STELLAR_NETWORK || 'testnet';
+const HORIZON_URL = import.meta.env.VITE_HORIZON_URL || 
+  (NETWORK === 'mainnet' ? 'https://horizon.stellar.org' : 'https://horizon-testnet.stellar.org');
+const SOROBAN_RPC_URL = import.meta.env.VITE_SOROBAN_RPC_URL || 
+  (NETWORK === 'mainnet' ? 'https://soroban-rpc.mainnet.stellar.org' : 'https://soroban-rpc.testnet.stellar.org');
 
-const horizonServer = new StellarSdk.Horizon.Server(
-  NETWORK === 'mainnet' 
-    ? 'https://horizon.stellar.org'
-    : `https://horizon-${NETWORK}.stellar.org`
-);
+const CONTRACT_ID_TESTNET = import.meta.env.VITE_LAUNCH_MANAGER_CONTRACT_ID_TESTNET || '';
+const CONTRACT_ID_MAINNET = import.meta.env.VITE_LAUNCH_MANAGER_CONTRACT_ID_MAINNET || '';
+const CONTRACT_ID = NETWORK === 'mainnet' ? CONTRACT_ID_MAINNET : CONTRACT_ID_TESTNET;
 
-const sorobanServer = new StellarSdk.SorobanRpc.Server(
-  NETWORK === 'mainnet'
-    ? 'https://soroban-rpc.mainnet.stellar.org'
-    : `https://soroban-rpc.${NETWORK}.stellar.org`
-);
+const horizonServer = new StellarSdk.Horizon.Server(HORIZON_URL);
+const sorobanServer = new StellarSdk.SorobanRpc.Server(SOROBAN_RPC_URL);
 
 export interface Campaign {
   creator: string;

@@ -19,62 +19,69 @@ router.post('/create', async (req, res, next) => {
       eventDurationDays,
       vestingEnabled,
       vestingMonths,
+      projectType,
+      sorobanContractId,
+      assetCode,
+      assetIssuer,
     } = req.body;
 
-    if (!creatorWalletAddress || !tokenName || !tokenSymbol || !totalSupply || !description) {
+    if (!creatorWalletAddress) {
       return res.status(400).json({
         success: false,
-        error: 'Missing required fields'
+        error: 'Creator wallet address is required'
       });
     }
 
-    if (typeof airdropPercent !== 'number' || typeof liquidityPercent !== 'number') {
+    if (airdropPercent !== undefined && airdropPercent < 0) {
       return res.status(400).json({
         success: false,
-        error: 'Invalid allocation settings'
+        error: 'Airdrop percent must be non-negative'
       });
     }
 
-    if (airdropPercent < 0 || liquidityPercent < 0) {
+    if (liquidityPercent !== undefined && liquidityPercent < 0) {
       return res.status(400).json({
         success: false,
-        error: 'All percentages must be positive'
+        error: 'Liquidity percent must be non-negative'
       });
     }
 
-    if (airdropPercent < 10) {
-      return res.status(400).json({
-        success: false,
-        error: 'Airdrop allocation must be at least 10%'
-      });
-    }
+    let normalizedAirdropPercent = airdropPercent ?? 20;
+    let normalizedLiquidityPercent = liquidityPercent ?? 20;
 
-    if (liquidityPercent < 10) {
-      return res.status(400).json({
-        success: false,
-        error: 'Liquidity allocation must be at least 10%'
-      });
-    }
-
-    const total = airdropPercent + liquidityPercent;
+    const total = normalizedAirdropPercent + normalizedLiquidityPercent;
     if (total > 100) {
+      normalizedAirdropPercent = (normalizedAirdropPercent / total) * 80;
+      normalizedLiquidityPercent = (normalizedLiquidityPercent / total) * 80;
+    }
+
+    const normalizedCreatorPercent = 100 - normalizedAirdropPercent - normalizedLiquidityPercent;
+
+    if (normalizedAirdropPercent < 0 || normalizedLiquidityPercent < 0 || normalizedCreatorPercent < 0) {
       return res.status(400).json({
         success: false,
-        error: `Airdrop + Liquidity cannot exceed 100% (currently ${total}%)`
+        error: 'Invalid percentage allocation after normalization'
       });
     }
 
-    if (!initialLiquidityXLM || initialLiquidityXLM < 2000) {
+    if (normalizedAirdropPercent + normalizedLiquidityPercent > 100) {
       return res.status(400).json({
         success: false,
-        error: 'Minimum liquidity requirement is 2,000 XLM'
+        error: 'Total allocation cannot exceed 100%'
       });
     }
 
-    if (!eventDurationDays || eventDurationDays < 3 || eventDurationDays > 7) {
+    if (initialLiquidityXLM !== undefined && initialLiquidityXLM < 0) {
       return res.status(400).json({
         success: false,
-        error: 'Event duration must be between 3 and 7 days'
+        error: 'Initial liquidity XLM must be non-negative'
+      });
+    }
+
+    if (eventDurationDays !== undefined && (eventDurationDays < 1 || eventDurationDays > 365)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Event duration must be between 1 and 365 days'
       });
     }
 
@@ -83,15 +90,19 @@ router.post('/create', async (req, res, next) => {
       tokenName,
       tokenSymbol,
       totalSupply,
-      decimals: decimals || 7,
+      decimals,
       description,
       logoUrl,
-      airdropPercent,
-      liquidityPercent,
+      airdropPercent: normalizedAirdropPercent,
+      liquidityPercent: normalizedLiquidityPercent,
       initialLiquidityXLM,
       eventDurationDays,
-      vestingEnabled: vestingEnabled || false,
+      vestingEnabled,
       vestingMonths,
+      projectType,
+      sorobanContractId,
+      assetCode,
+      assetIssuer,
     });
 
     res.json({
