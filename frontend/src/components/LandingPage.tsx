@@ -52,7 +52,7 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
       icon: Zap,
       title: 'Auto DEX',
       image: '/svgs/auto-dex.svg',
-      description: 'Automatic DEX listing at $100K market cap',
+      description: 'Automatic DEX listing when campaign milestones are reached',
       color: '#FCD535'
     }
   ]
@@ -76,7 +76,7 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
     { 
       icon: Zap, 
       title: 'Automated DEX Listing', 
-      description: 'Seamless transition to Stellar DEX at $100K MC' 
+      description: 'Seamless transition to Stellar DEX after campaign completion' 
     },
     { 
       icon: FileCheck, 
@@ -143,7 +143,7 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
                 textShadow: '0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 40px rgba(252, 213, 53, 0.15)'
               }}
             >
-              <span className="text-white drop-shadow-2xl">Fair Token Launch Platform</span>
+              <span className="text-white drop-shadow-2xl">Mint STAR Points & Earn</span>
               <br />
               <span 
                 className="bg-gradient-to-r from-[#F7931A] via-[#FCD535] to-[#F7931A] bg-clip-text text-transparent"
@@ -151,7 +151,7 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
                   filter: 'drop-shadow(0 2px 8px rgba(252, 213, 53, 0.5))'
                 }}
               >
-                on Stellar
+                SLF Tokens
               </span>
             </motion.h1>
             
@@ -164,8 +164,8 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
                 textShadow: '0 2px 12px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.7)'
               }}
             >
-              Launch tokens with fair airdrops, task-based rewards, and automated DEX liquidity.
-              All powered by Soroban smart contracts with complete on-chain transparency.
+              Convert XLM to STAR points at 1:10 ratio. STAR holders receive 60% of SLF token supply at TGE.
+              Fair launch GameFi + DeFi platform powered by Stellar blockchain.
             </motion.p>
 
             <motion.div
