@@ -18,6 +18,9 @@ interface TokenData {
   status?: 'active' | 'upcoming' | 'completed'
   twitter?: string
   discord?: string
+  totalStarBurned?: number
+  eventEndDate?: string
+  totalParticipations?: number
 }
 
 interface TokenMarketContextType {
@@ -155,7 +158,10 @@ const mockTokens: TokenData[] = [
     description: 'Complete tasks to earn DEFI tokens',
     type: 'airdrop',
     createdAt: '3m ago',
-    status: 'active'
+    status: 'active',
+    totalStarBurned: 12500,
+    eventEndDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+    totalParticipations: 245
   },
   {
     id: '8',
@@ -172,7 +178,10 @@ const mockTokens: TokenData[] = [
     description: 'Airdrop for early supporters and task completers',
     type: 'airdrop',
     createdAt: '1h ago',
-    status: 'active'
+    status: 'active',
+    totalStarBurned: 8320,
+    eventEndDate: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000).toISOString(),
+    totalParticipations: 178
   }
 ]
 

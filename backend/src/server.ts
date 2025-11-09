@@ -12,6 +12,7 @@ import liquidityRoutes from './routes/liquidity';
 import referralRoutes from './routes/referrals';
 import pointsRoutes from './routes/points';
 import projectRoutes from './routes/projects';
+import starBurnRoutes from './routes/starBurn';
 import { errorHandler } from './middleware/errorHandler';
 import { securityMiddleware, checkRateLimit } from './middleware/security';
 import { initializeDefaultTasks } from './initTasks';
@@ -50,6 +51,7 @@ app.use('/api/game', gameRoutes);
 app.use('/api/dex', dexRoutes);
 app.use('/api/liquidity', liquidityRoutes);
 app.use('/api/points', pointsRoutes);
+app.use('/api/star-burn', starBurnRoutes);
 app.use('/api', campaignsRouter);
 
 if (isProduction) {

@@ -32,6 +32,7 @@ export const pointBalances = pgTable('point_balances', {
   pointsEarnedFromPlatform: decimal('points_earned_from_platform', { precision: 20, scale: 2 }).default('0').notNull(),
   pointsEarnedFromReferrals: decimal('points_earned_from_referrals', { precision: 20, scale: 2 }).default('0').notNull(),
   pointsEarnedFromTasks: decimal('points_earned_from_tasks', { precision: 20, scale: 2 }).default('0').notNull(),
+  pointsBurned: decimal('points_burned', { precision: 20, scale: 2 }).default('0').notNull(),
   initialBonusReceived: boolean('initial_bonus_received').default(false).notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 }, (table) => ({
@@ -163,6 +164,7 @@ export const projects = pgTable('projects', {
   totalParticipations: integer('total_participations').default(0).notNull(),
   totalXlmContributed: decimal('total_xlm_contributed', { precision: 20, scale: 7 }).default('0').notNull(),
   totalStarDistributed: decimal('total_star_distributed', { precision: 20, scale: 2 }).default('0').notNull(),
+  totalStarBurned: decimal('total_star_burned', { precision: 20, scale: 2 }).default('0').notNull(),
   creatorStarEarned: decimal('creator_star_earned', { precision: 20, scale: 2 }).default('0').notNull(),
   tokenCreated: boolean('token_created').default(false).notNull(),
   tokenIssuer: text('token_issuer'),
@@ -189,4 +191,20 @@ export const projectParticipations = pgTable('project_participations', {
   projectIdx: index('participations_project_idx').on(table.projectId),
   participantIdx: index('participations_participant_idx').on(table.participantWalletId),
   txHashIdx: index('participations_tx_hash_idx').on(table.transactionHash),
+}));
+
+export const starBurns = pgTable('star_burns', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  projectId: uuid('project_id').references(() => projects.id).notNull(),
+  walletId: uuid('wallet_id').references(() => wallets.id).notNull(),
+  walletAddress: text('wallet_address').notNull(),
+  starBurned: decimal('star_burned', { precision: 20, scale: 2 }).notNull(),
+  starToCreator: decimal('star_to_creator', { precision: 20, scale: 2 }).notNull(),
+  starDestroyed: decimal('star_destroyed', { precision: 20, scale: 2 }).notNull(),
+  requestId: text('request_id').notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => ({
+  projectIdx: index('star_burns_project_idx').on(table.projectId),
+  walletIdx: index('star_burns_wallet_idx').on(table.walletId),
+  requestIdIdx: uniqueIndex('star_burns_request_id_idx').on(table.requestId),
 }));
